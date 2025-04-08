@@ -1,0 +1,24 @@
+for exp_distribution
+
+3 - id_pole
+0 - id_point
+4 - id_exp
+1000000 - max итерация
+
+for exp_distribution_on_concential
+
+3 - id_pole
+0 - id_point
+4 - id_exp
+0.05 - alpha
+50 - размер категории
+1000000 - max итерация
+
+for bilder hist and create gif
+1 - id_pole 
+1 - id_point 
+1 - id_exp 
+1 - category 
+1000 - max_x
+550 - max_y
+10000 - step
