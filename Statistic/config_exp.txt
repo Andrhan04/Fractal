@@ -23,7 +23,7 @@ for bilder hist and create gif
 550 - max_y
 10000 - step
 
-for heat map
+for heat map and create gif
 0 - id_pole
 0 - id_point
 0 - id_exp

@@ -35,7 +35,7 @@ fractal_x.append(fractal_x[0])
 fractal_y.append(fractal_y[0])
 
 path_files = f"log\\pole_{id_pole}\\Points_{id_point}\\iter_{id_exp}" # Путь до папки с файлами расположении частиц
-new_folder = f"Statistic\\heap_map\\pole_{id_pole}\\Points_{id_point}\\iter_{id_exp}" # Путь до новой папки
+new_folder = f"Statistic\\heap_map\\pole_{id_pole}\\Points_{id_point}\\exp_{id_exp}" # Путь до новой папки
 create_path(new_folder)
 
 onlyfiles = [f for f in listdir(path_files) if isfile(join(path_files, f))] # получение всех файлов в папке
@@ -44,7 +44,7 @@ i : int = 0
 for path_to_file in onlyfiles:
     i += 1
     if(i%(n//100) == 0):
-        print(f"Complete {i} %")
+        print(f"Complete {i//(n//100)} %")
     F = open(path_files + '\\' + path_to_file)
     data = []
     data = F.readlines()
@@ -60,7 +60,6 @@ for path_to_file in onlyfiles:
 
     plt.plot(fractal_x, fractal_y, label = "Фрактал")
     plt.scatter(x, y, c=z,  s=1)
-    # plt.show()
     path_to_file = path_to_file.replace('.txt','')
     plt.savefig(new_folder+ "\\" + path_to_file + ".png")
     plt.cla()
