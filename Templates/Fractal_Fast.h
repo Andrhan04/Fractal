@@ -1,6 +1,7 @@
 #pragma once
 #include "struct_pt.h"
 #include "Line.h"
+#include <string>
 #include <set>
 
 class Figure{
@@ -46,6 +47,9 @@ private:
 	Line down = Line();
 	double eps = 1e-9;
 public:
+	std::string get_info() {
+		return "left :" + left.get_param() + "\nright :" + right.get_param() + "\nup :" + up.get_param() +"\ndown :" + down.get_param() + "\n";
+	}
 	void get_param() {
 		std::cout << "left  ";
 		left.get_param();

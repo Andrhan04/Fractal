@@ -17,7 +17,7 @@ using json = nlohmann::json;
 
 
 Figure* input_pole(int id) {
-    ifstream InpPole("..\\Sowing\\Fractal\\koch_curve_pore_" + to_string(id) + ".txt");
+    ifstream InpPole("..\\Sowing\\Fractal_start\\koch_curve_pore_" + to_string(id) + ".txt");
     Figure* root = nullptr;
     if (InpPole.is_open()) {
         vector<Figure*> arr;
@@ -41,6 +41,9 @@ Figure* input_pole(int id) {
             }
             arr[arr.size() - 1]->prev = arr[arr.size() - 2];
             root = arr[0];
+        }
+        else {
+            cout << "FATAL ERROR \nlin fractal =" << arr.size() << endl;
         }
         cout << "INPUT FRACTAL WAS DONE" << endl;
     }
@@ -74,10 +77,15 @@ void input_point(int id, vector<Point>& myArr, Figure* f) {
 
 
 void input_trap(int id, vector<Trap>& myArr, Figure* root) {
+    if (root == nullptr) {
+        cout << "WRRING" << endl;
+        return;
+    }
     ifstream in("..\\Sowing\\Trap_fast\\Traps_" + to_string(id) + ".txt");
     string line, X, Y;
     vector<Figure*> fig;
     while (root->next != nullptr) {
+        (*root).get_param();
         fig.push_back(root);
         root = root->next;
     }
@@ -105,15 +113,32 @@ void input_trap(int id, vector<Trap>& myArr, Figure* root) {
 }
 
 void Program(int id_pole, int id_point, int id_trap, int id_exp, int t) {
+    vector<int> mem;
     Figure* root = input_pole(id_pole);
+    int Live_time = -1;
+    if (root == nullptr) {
+        cout << "WRRING" << endl;
+        return;
+    }
     Figure* copy = root;
     vector<Point> myPoints;
     vector<Trap> myTraps;
     input_point(id_point, myPoints, copy);
+    copy = root;
     input_trap(id_trap, myTraps, copy);
     int n_p = myPoints.size();
+    json j;
+    j["experiment_id"] = id_exp;
+    j["pole_id"] = id_pole;
+    j["point_id"] = id_point;
+    j["trap_id"] = id_trap;
+    j["iterationsCount"] = t;
+    j["pointsCount"] = n_p;
+    j["trapsCount"] = myTraps.size();
+    j["trapsSeeds"] = "..\\Sowing\\Trap_fast\\Traps_" + to_string(id_trap) + ".txt";
+    j["pointsSeed"] = "..\\Sowing\\Points\\Points_" + to_string(id_point) + ".txt";
     vector<int> buf(t / 100);
-    string path = "..\\log\\pole_" + to_string(id_pole) + "\\Points_" + to_string(id_point);
+    string path = "..\\log_whith_traps\\pole_" + to_string(id_pole) + "\\Points_" + to_string(id_point) + "\\Traps_" + to_string(id_trap);
     ofstream Alive(path + "\\Alive_" + to_string(id_exp) + ".txt");
     ofstream Death(path + "\\Dead_" + to_string(id_exp) + ".txt");
     if (filesystem::create_directories(path + "\\Iter_" + to_string(id_exp))) {
@@ -124,6 +149,7 @@ void Program(int id_pole, int id_point, int id_trap, int id_exp, int t) {
             cout << "Complete" << setw(3) << a / (t / 100) << " %" << endl;
         }
         if (a % 1000 == 0) {
+            mem.push_back(n_p);
             ofstream Iter(path + "\\Iter_" + to_string(id_exp) + "\\Iter_" + to_string(a) + ".txt");
             for (int i = 0; i < n_p; i++) {
                 Iter << setprecision(3) << fixed << myPoints[i].X << ' ' << myPoints[i].Y << ' ' << myPoints[i].Work << endl;
@@ -138,17 +164,32 @@ void Program(int id_pole, int id_point, int id_trap, int id_exp, int t) {
                 n_p--;
             }
         }
+        if (n_p < myPoints.size() / 2.71) {
+            Live_time = n_p;
+        }
     }
+    ofstream Iter(path + "\\Iter_" + to_string(id_exp) + "\\Iter_" + to_string(t) + ".txt");
+    for (int i = 0; i < n_p; i++) {
+        Iter << setprecision(3) << fixed << myPoints[i].X << ' ' << myPoints[i].Y << ' ' << myPoints[i].Work << endl;
+    }
+    Iter.close();
     cout << "WAS DONE" << endl;
     for (int i = 0; i < n_p; i++) {
         Alive << setprecision(3) << fixed << myPoints[i].X << ' ' << myPoints[i].Y << endl;
     }
+    j["Live_time"] = Live_time;
+    ofstream Statist(path + "\\Statist_" + to_string(id_exp) + ".txt");
+    Statist << j << endl;
+    for (int i = 0; i < mem.size(); i++) {
+        Statist << i << ' ' << mem[i] << endl;
+    }
+    Statist.close();
     Alive.close();
     Death.close();
 }
 
-void Create(int id_pole, int id_point) {
-    string path = "..\\log";
+void Create(int id_pole, int id_point, int id_trap) {
+    string path = "..\\log_whith_traps";
     if (filesystem::create_directories(path)) {
         cout << "Create" << endl;
     }
@@ -160,14 +201,18 @@ void Create(int id_pole, int id_point) {
     if (filesystem::create_directories(path)) {
         cout << "Create" << endl;
     }
+    path += "\\Traps_" + to_string(id_point);
+    if (filesystem::create_directories(path)) {
+        cout << "Create" << endl;
+    }
 }
 
 int main() {
-    int id_pole = 2;
+    int id_pole = 0;
     int id_point = 0;
     int id_trap = 0;
     int exp = 0;
     int t = 1e6;
-    Create(id_pole, id_point);
+    Create(id_pole, id_point, id_trap);
     Program(id_pole, id_point, id_trap, exp, t);
 }

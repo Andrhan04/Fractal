@@ -143,8 +143,8 @@ def programm(path, file, step, alpha):
     stats_value_y['Exponential.critical'].append(critical_value_exponential)
     
     stats_work_y['iteration'].append(int((file.split('.')[0])[5:]))
-    stats_work_y['Shapiro'].append(int((ResShapiro.pvalue != "D'Agostino not works!" and ResShapiro.pvalue > 0.05)))
-    stats_work_y['DAgostino'].append(int(ResDAgostino.pvalue != "D'Agostino not works!" and ResDAgostino.pvalue > 0.05))
+    stats_work_y['Shapiro'].append(int((ResShapiro.pvalue != "D'Agostino not works!" and ResShapiro.pvalue > alpha)))
+    stats_work_y['DAgostino'].append(int(ResDAgostino.pvalue != "D'Agostino not works!" and ResDAgostino.pvalue > alpha))
     stats_work_y['Uniform'].append(int(f_uniform))
     stats_work_y['Exponential'].append(int(f_exponential))
     
@@ -167,8 +167,8 @@ def programm(path, file, step, alpha):
     stats_value_x['Exponential.critical'].append(critical_value_exponential)
 
     stats_work_x['iteration'].append(int((file.split('.')[0])[5:]))
-    stats_work_x['Shapiro'].append(int((ResShapiro.pvalue != "D'Agostino not works!" and ResShapiro.pvalue > 0.05)))
-    stats_work_x['DAgostino'].append(int(ResDAgostino.pvalue != "D'Agostino not works!" and ResDAgostino.pvalue > 0.05))
+    stats_work_x['Shapiro'].append(int((ResShapiro.pvalue != "D'Agostino not works!" and ResShapiro.pvalue > alpha)))
+    stats_work_x['DAgostino'].append(int(ResDAgostino.pvalue != "D'Agostino not works!" and ResDAgostino.pvalue > alpha))
     stats_work_x['Uniform'].append(int(f_uniform))
     stats_work_x['Exponential'].append(int(f_exponential))
     

@@ -1,3 +1,4 @@
+#include <string>
 class Line {
 private:
 	double a, b, c;
@@ -9,8 +10,9 @@ private:
 			a /= z, b /= z, c /= z;
 	}
 public:
-	void get_param() {
+	std::string get_param() {
 		std::cout << "(" << a << ")x + (" << b << ")y + (" << c << ") = 0" << std::endl;
+		return ("(" + std::to_string(a) + ")x + (" + std::to_string(b) + ")y + (" + std::to_string(c) + ") = 0");
 	}
 	double dist(pt p) const {
 		return a * p.x + b * p.y + c;

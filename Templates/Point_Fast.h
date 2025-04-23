@@ -80,7 +80,7 @@ public:
             if (f == 1) {
                 for (auto& i : fig->up_trap) {
                     if (Traps[i].Cath(X,Y)) {
-                        std::cerr << "Ctach\n";
+                        //std::cerr << "Ctach\n";
                         fig->up_trap.erase(i);
                         Alive = false;
                         return true;
@@ -91,8 +91,7 @@ public:
                 for (auto& i : fig->down_trap) {
                     if (Traps[i].Cath(X,Y)) {
                         fig->down_trap.erase(i);
-                        std::cerr << "Ctach\n";
-
+                        //std::cerr << "Ctach\n";
                         Alive = false;
                         return true;
                     }
@@ -102,8 +101,7 @@ public:
                 for (auto& i : fig->right_trap) {
                     if (Traps[i].Cath(X,Y)) {
                         fig->right_trap.erase(i);
-                        std::cerr << "Ctach\n";
-
+                        //std::cerr << "Ctach\n";
                         Alive = false;
                         return true;
                     }
