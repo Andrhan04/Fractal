@@ -127,7 +127,7 @@ void programm(int id, int n){
 int main() {
     const int g_nNumberOfThreads = 20;
     omp_set_num_threads(g_nNumberOfThreads);
-    for (int i = 700, id = 2; i < 2000; id++, i += 10) {
+    for (int i = 700, id = 0; i <= 2000; id++, i += 10) {
         programm(id, i);
     }
     return 0;
