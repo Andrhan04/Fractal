@@ -82,8 +82,8 @@ private:
 };
 
 int main(){
-    int id = 0;
-    int n = 1000, r = 0;
+    int id = 2;
+    int n = 1500, r = 0;
     ofstream Start_slow("..\\Sowing\\Trap_slow\\Traps_" + to_string(id) + ".txt");
     ofstream Start_fast("..\\Sowing\\Trap_fast\\Traps_" + to_string(id) + ".txt");
     if (!Start_slow.is_open()) return 0;

@@ -139,7 +139,6 @@ void Program(int id_pole, int id_point, int id_trap, int id_exp, int t) {
     j["pointsSeed"] = "..\\Sowing\\Points\\Points_" + to_string(id_point) + ".txt";
     vector<int> buf(t / 100);
     string path = "..\\log_whith_traps\\pole_" + to_string(id_pole) + "\\Points_" + to_string(id_point) + "\\Traps_" + to_string(id_trap);
-    ofstream Alive(path + "\\Alive_" + to_string(id_exp) + ".txt");
     ofstream Death(path + "\\Dead_" + to_string(id_exp) + ".txt");
     if (filesystem::create_directories(path + "\\Iter_" + to_string(id_exp))) {
         cout << "Create" << endl;
@@ -164,8 +163,8 @@ void Program(int id_pole, int id_point, int id_trap, int id_exp, int t) {
                 n_p--;
             }
         }
-        if (n_p < myPoints.size() / 2.71) {
-            Live_time = n_p;
+        if (Live_time < 0 && n_p < myPoints.size() / 2.71) {
+            Live_time = a;
         }
     }
     ofstream Iter(path + "\\Iter_" + to_string(id_exp) + "\\Iter_" + to_string(t) + ".txt");
@@ -174,6 +173,7 @@ void Program(int id_pole, int id_point, int id_trap, int id_exp, int t) {
     }
     Iter.close();
     cout << "WAS DONE" << endl;
+    ofstream Alive(path + "\\Alive_" + to_string(id_exp) + ".txt");
     for (int i = 0; i < n_p; i++) {
         Alive << setprecision(3) << fixed << myPoints[i].X << ' ' << myPoints[i].Y << endl;
     }
@@ -181,8 +181,9 @@ void Program(int id_pole, int id_point, int id_trap, int id_exp, int t) {
     ofstream Statist(path + "\\Statist_" + to_string(id_exp) + ".txt");
     Statist << j << endl;
     for (int i = 0; i < mem.size(); i++) {
-        Statist << i << ' ' << mem[i] << endl;
+        Statist << i*1000 << ' ' << mem[i] << endl;
     }
+    Statist << t << ' ' << n_p << endl;
     Statist.close();
     Alive.close();
     Death.close();
@@ -210,7 +211,7 @@ void Create(int id_pole, int id_point, int id_trap) {
 int main() {
     int id_pole = 0;
     int id_point = 0;
-    int id_trap = 0;
+    int id_trap = 1;
     int exp = 0;
     int t = 1e6;
     Create(id_pole, id_point, id_trap);
