@@ -213,9 +213,9 @@ void Create(int id_pole, int id_point, int id_trap) {
 int main() {
     int id_pole = 0;
     int id_point = 0;
-    int id_trap = 1;
-    int exp = 1;
-    int t = 1e7;
+    int id_trap = 0;
+    int exp = 0;
+    int t = 1e6;
     const int g_nNumberOfThreads = 30;
     omp_set_num_threads(g_nNumberOfThreads);
 #pragma omp parallel for
