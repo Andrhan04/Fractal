@@ -7,6 +7,7 @@
 #include <fstream>
 #include <math.h>
 #include <random>
+#include <omp.h>
 
 using namespace std;
 
@@ -81,13 +82,12 @@ private:
     }
 };
 
-int main(){
-    int id = 2;
-    int n = 1500, r = 0;
+void programm(int id, int n){    
+    int r = 0;
     ofstream Start_slow("..\\Sowing\\Trap_slow\\Traps_" + to_string(id) + ".txt");
     ofstream Start_fast("..\\Sowing\\Trap_fast\\Traps_" + to_string(id) + ".txt");
-    if (!Start_slow.is_open()) return 0;
-    if (!Start_fast.is_open()) return 0;
+    if (!Start_slow.is_open()) return;
+    if (!Start_fast.is_open()) return;
     vector<Trap> arr;
     Start_slow << n << endl;
     Start_fast << n << endl;
@@ -115,12 +115,20 @@ int main(){
     }
     sort(arr.begin(), arr.end(), [&](Trap t1, Trap t2) {return (t1.wall > t2.wall || (t1.wall == t2.wall && t1.dist > t2.dist)); });
     for (auto tr : arr) {
-        cout << setprecision(3) << fixed << setw(10) << tr.wall << setw(10) << tr.dist << endl;
+        //cout << setprecision(3) << fixed << setw(10) << tr.wall << setw(10) << tr.dist << endl;
         Start_slow << tr.Info_slow() << endl;
         Start_fast << tr.Info_Fast() << endl;
     }
     Start_slow.close();
     Start_fast.close();
-    cout << r << endl;
+    cout << id << " was done" << endl;
+}
+
+int main() {
+    const int g_nNumberOfThreads = 20;
+    omp_set_num_threads(g_nNumberOfThreads);
+    for (int i = 700, id = 2; i < 2000; id++, i += 10) {
+        programm(id, i);
+    }
     return 0;
 }
