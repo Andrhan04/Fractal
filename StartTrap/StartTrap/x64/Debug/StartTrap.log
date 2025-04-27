@@ -1,4 +1,0 @@
-﻿  StartTrap.cpp
-C:\Users\user\source\Fractal\StartTrap\StartTrap.cpp(32,20): warning C4244: return: преобразование "double" в "int", возможна потеря данных
-C:\Users\user\source\Fractal\StartTrap\StartTrap.cpp(54,43): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-  StartTrap.vcxproj -> C:\Users\user\source\Fractal\StartTrap\x64\Debug\StartTrap.exe

@@ -214,15 +214,16 @@ int main() {
     int id_pole = 0;
     int id_point = 0;
     int id_trap = 0;
-    int exp = 0;
-    int t = 1e6;
-    const int g_nNumberOfThreads = 30;
+    int t = 1e6 * 3;
+    const int g_nNumberOfThreads = 20;
     omp_set_num_threads(g_nNumberOfThreads);
-#pragma omp parallel for
-    for (int i = 0; i <= 131; i++) {
-        cout << i << ' ' << "Start " << endl;
-        Create(id_pole, id_point, i);
-        Program(id_pole, id_point, i, exp, t);
-        cout << i << ' ' << "Was done" << endl;
+    for (int id_trap = 26; id_trap <= 150; id_trap++) {
+        Create(id_pole, id_point, id_trap);
+        #pragma omp parallel for
+        for (int exp = 2; exp <= 22; exp++) {
+            //cout << "Start id_trap = " << id_trap << "; exp = " << exp << endl;
+            Program(id_pole, id_point, id_trap, exp, t);
+        }
+        cout << ((id_trap + 1) / 150.0) * 100 << ' ' << "% Was done" << endl;
     }
 }
