@@ -71,7 +71,7 @@ ax.grid(True, linestyle='-.', linewidth=0.5, color='gray')
 ax.tick_params(axis='both', which='both', labelsize=8, width=1, color='red')
 plt.xlabel('Количество ловушек') #Подпись для оси х
 plt.ylabel('Время жизни') #Подпись для оси y
-plt.title('Зависимость времени жизни от количества ловушек при $3 * 10^6$ итераций') #Название
+plt.title('Зависимость времени жизни от ловушек при $3 * 10^6$ итераций') #Название
 plt.savefig(path_to_save + f'Grafic_time_live_{id_point}.png')
 plt.show()
 plt.close()
@@ -82,7 +82,7 @@ ax.grid(True, linestyle='-.', linewidth=0.5, color='gray')
 ax.tick_params(axis='both', which='both', labelsize=8, width=1, color='red')
 plt.xlabel('Количество ловушек') #Подпись для оси х
 plt.ylabel('Количество активных частиц') #Подпись для оси y
-plt.title('Зависимость количества активных частиц от количества ловушек при $3 * 10^6$ итераций') #Название
+plt.title('Зависимость количества активных частиц от количества ловушек \nпри $3 * 10^6$ итераций') #Название
 plt.savefig(path_to_save + f'Grafic_alive_{id_point}.png')
 plt.show()
 plt.close()
