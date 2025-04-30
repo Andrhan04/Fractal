@@ -6,8 +6,8 @@ import pandas as pd
 
 def mapping_time_live(values_x, a, b):     
     #return (2.71**values_x)*b + a                  # не работает на времени жизни
-    return a/values_x + b                           # 7.484% на времени жизни
-    #return a/(values_x**2) + b                     # 34.658% на времени жизни
+    #return a/values_x + b                          # 7.484% на времени жизни
+    return a/(values_x**2) + b                      # не работает на времени жизни
     #return (np.log(values_x)*b + a)                # 11.134% на времени жизни
     #return ((2.71**values_x)*b + a*(values_x**2))  # не работает на времени жизни
     #return ((values_x)*b + a*(values_x**2))        # 24.737% на времени жизни
@@ -16,15 +16,15 @@ def mapping_time_live(values_x, a, b):
     #return (a/(values_x**(b)))                     # не работает на времени жизни
 
 def mapping_alive(values_x, a, b):
-    #return (2.71**values_x)*b + a                  # не работает на активных
+    #return (2.71**values_x)*a + b                  # не работает на активных
     #return a/values_x + b                          # 33.171% на активных
     return a/(values_x**2) + b                      # 12.015% на активных
-    #return (np.log(values_x)*b + a)                # 66.715% на активных
+    #return (np.log(values_x)*a + b)                # 66.715% на активных
     #return ((2.71**values_x)*b + a*(values_x**2))  # не работает на активных
     #return ((values_x)*b + a*(values_x**2))        # 146.078% на активных
     #return ((values_x)*b + a)                      # 93.767% на активных
     #return (a/(values_x**(1/2)) + b)               # 50.455% на активных
-    #return (a/(values_x**(b)))                     # 43.018 на активных
+    #return (a/(values_x**(b)))                     # 43.018% на активных
 
 id_point : int = 0
 
@@ -55,7 +55,6 @@ so = 0
 for i in range(len(y_time_live)):
     if(y_time_live[i] !=0):
         so += abs(yint[i]-y_time_live[i])/y_time_live[i]
-
 so = so / (len(y_time_live)) * 100
 so = round(so,3)
 print(so)
