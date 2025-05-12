@@ -100,6 +100,12 @@ void Program(int id_pole, int id_point, int id_exp, int t){
             myPoints[i].Step();
         }
     }
+    ofstream Iter(path + "\\Iter_" + to_string(id_exp) + "\\Iter_" + to_string(t) + ".txt");
+    for (int i = 0; i < n_p; i++) {
+        Iter << setprecision(3) << fixed << myPoints[i].X << ' ' << myPoints[i].Y << ' ' << myPoints[i].fig->id << endl;
+    }
+    Iter.close();
+
     std::cout << "WAS DONE" << endl;
     for (int i = 0; i < n_p; i++) {
         Alive << setprecision(3) << fixed << myPoints[i].X << ' ' << myPoints[i].Y << ' ' << myPoints[i].fig->id << endl;
@@ -123,9 +129,9 @@ void Create(int id_pole, int id_point) {
 }
 
 int main() {
-    int id_pole = 0;
-    int id_point = 1;
-    int exp = 4;
+    int id_pole = 5;
+    int id_point = 0;
+    int exp = 0;
     int t = 1e6;
     Create(id_pole,id_point);
     Program(id_pole, id_point, exp, t);

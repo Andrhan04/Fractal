@@ -29,14 +29,14 @@ def programm(path : str, file : str, step : int, path_to_save : str, max_x : int
     plt.xlabel('Категории')
     plt.ylabel('Значения')
     plt.title('Гистограмма данных из файла')
-    plt.ylim(0, 200)
+    plt.ylim(0, 50)
     plt.bar(range(len(data_x)), data_x, color='blue', alpha=0.7, align='edge', linewidth = 0, width = 1)
     #plt.plot(range(len(data_x)), data_x, color='green', marker='o', markersize=0.01)
     plt.savefig(path_to_save + '/x/' + (file.split('.'))[0] + '.png')
     plt.close()
 #-------------------------------------------------------------------------------------------------------------
     plt.figure(figsize=(8, 5))
-    plt.ylim(0,500)
+    plt.ylim(0,200)
     plt.xlabel('Категории')
     plt.ylabel('Значения')
     plt.title('Гистограмма данных из файла')
@@ -81,10 +81,6 @@ for filename in onlyfiles:
         print(f'Complete {i // (n//100)}%')
     if (int((filename.split('.'))[0][5:]) % step == 0 and int((filename.split('.'))[0][5:]) != 0):
         programm(path_to_files, filename, category, path_to_save=f"Statistic\\hist\\pole_{id_pole}\\Points_{id_point}\\exp_{id_exp}\\category_{category}", max_x = max_x , max_y = max_y)
-
-programm(path = f"log\\pole_{id_pole}\\Points_{id_point}", file = f"Alive_{id_exp}.txt", 
-         step = category, path_to_save=f"Statistic\\hist\\pole_{id_pole}\\Points_{id_point}\\exp_{id_exp}\\category_{category}", 
-         max_x = max_x , max_y = max_y)
 
 
 #---------------------------Выполнение критериев
