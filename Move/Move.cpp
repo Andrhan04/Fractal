@@ -129,10 +129,10 @@ void Create(int id_pole, int id_point) {
 }
 
 int main() {
-    int id_pole = 5;
+    int id_pole = 4;
     int id_point = 0;
-    int exp = 0;
-    int t = 1e6;
+    int exp = 1;
+    int t = 1e7;
     Create(id_pole,id_point);
     Program(id_pole, id_point, exp, t);
 

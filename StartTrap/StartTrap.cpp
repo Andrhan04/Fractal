@@ -11,6 +11,8 @@
 
 using namespace std;
 
+vector<double> fractal_x, fractal_y;
+
 struct pt
 {
     double x, y;
@@ -72,8 +74,6 @@ private:
     double eps = 2 * range;
     double range = 0.5;
     vector<Line> arr;
-    vector<double> fractal_x = { 100, 428.86751345948124, 550, 671.1324865405187, 1000, 1000, 728.8675134594813, 550, 371.13248654051864, 100},
-                fractal_y = { 550, 550, 340.1923788646683, 550, 550, 450, 450, 140.1923788646683, 450, 450};
     std::mt19937 random_generator_;
     int returnRandom(int min, int max) {
         if (max < min) std::swap(max, min);
@@ -124,11 +124,46 @@ void programm(int id, int n){
     cout << id << " was done" << endl;
 }
 
+void Get_pole(int id) {
+    ifstream Input("..\\Sowing\\Fractal_convecs\\koch_curve_pore_" + to_string(id) + ".txt");
+    vector<pair<double, double>> mem;
+    if (Input.is_open()) {
+        double x, y;
+        while (Input >> x >> y) {
+            mem.push_back({ x,y });
+        }
+        Input.close();
+        fractal_x.push_back(mem[0].first);
+        fractal_y.push_back(mem[0].second);
+        for (int i = 1; i < mem.size(); i++) {
+            if (mem[i - 1] != mem[i]) {
+                fractal_x.push_back(mem[i].first);
+                fractal_y.push_back(mem[i].second);
+            }
+        }
+    }
+    else {
+        cout << "WARRING NOT OPEN\n ..\\Sowing\\Fractal_convecs\\koch_curve_pore_" + to_string(id) + ".txt" << endl;
+        throw "File not open";
+    }
+}
+
+
 int main() {
     const int g_nNumberOfThreads = 20;
-    omp_set_num_threads(g_nNumberOfThreads);
-    for (int i = 2010, id = 131; i <= 2200; id++, i += 10) {
-        programm(id, i);
+    int pole_id = 4;
+    Get_pole(pole_id);
+    int ans = 0;
+    for (int i = 1; i < fractal_x.size(); i++) {
+        Line l = Line(fractal_x[i - 1], fractal_y[i - 1], fractal_x[i], fractal_y[i]);
+        ans += l.get_dist();
     }
+    cout << ans << endl;
+/*
+    omp_set_num_threads(g_nNumberOfThreads);
+    for (int i = 700; i <= 2800; i += 10) {
+        programm((i - 700)/10 + 401, i);
+    }
+*/
     return 0;
 }

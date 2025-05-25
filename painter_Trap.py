@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
-id_trap = 0
-id_pole = 3
+id_trap = 501
+id_pole = 5
 id_point = 0
 id_exp = 2
 
@@ -17,8 +17,8 @@ tr_y = []
 i = 0
 for s in data:
     buf = s.split()
-    # tr_x.append(float(buf[0]))
-    # tr_y.append(float(buf[1]))
+    tr_x.append(float(buf[0]))
+    tr_y.append(float(buf[1]))
     i += 1
 
 # Поле
@@ -37,10 +37,10 @@ fractal_y.append(fractal_y[1])
 
 #       Частицы
 # чтение из файла
-F = open("log\\pole_" + str(id_pole) + "\\Points_" + str(id_point) + "\\Alive_" + str(id_exp) + ".txt",'r+')
+# F = open("log\\pole_" + str(id_pole) + "\\Points_" + str(id_point) + "\\Alive_" + str(id_exp) + ".txt",'r+')
 data = []
-data = F.readlines()
-F.close()
+# data = F.readlines()
+# F.close()
 # обработка данных
 pt_x = []
 pt_y = []

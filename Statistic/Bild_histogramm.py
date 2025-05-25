@@ -22,14 +22,14 @@ def programm(path : str, file : str, step : int, path_to_save : str, max_x : int
     data_y = [0]*(max_y//step + 1)
     for s in data:
         buf = s.split()
-        data_x[int(float(buf[0]))//step] += 1
-        data_y[int(float(buf[1]))//step] += 1
+        data_x[min(int(float(buf[0]))//step,max_x//step)] += 1
+        data_y[min(int(float(buf[1]))//step,max_y//step)] += 1
 #-------------------------------------------------------------------------------------------------------------
     plt.figure(figsize=(8, 5))
     plt.xlabel('Категории')
     plt.ylabel('Значения')
     plt.title('Гистограмма данных из файла')
-    plt.ylim(0, 50)
+    plt.ylim(0, 200)
     plt.bar(range(len(data_x)), data_x, color='blue', alpha=0.7, align='edge', linewidth = 0, width = 1)
     #plt.plot(range(len(data_x)), data_x, color='green', marker='o', markersize=0.01)
     plt.savefig(path_to_save + '/x/' + (file.split('.'))[0] + '.png')
