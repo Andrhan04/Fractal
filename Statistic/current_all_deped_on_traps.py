@@ -26,7 +26,6 @@ def Get_data(id_pole : int , id_point : int, id_traps : int, exp_id : int, liveT
     print(path)
     F = open(path,'r+')
     data :str = F.readline()
-    print(data)
     templates : json = json.loads(data)
     F.close()
     path = f"log_whith_traps\\pole_{id_pole}\\Points_{id_point}\\Traps_{id_traps}\\Alive_{exp_id}.txt"
@@ -41,16 +40,20 @@ def Get_data(id_pole : int , id_point : int, id_traps : int, exp_id : int, liveT
     liveTime.append(templates["Live_time"])
     
     
-#f = open('Statistic\\config.txt', 'r+')
-id_pole = 0
-id_point = 0
-#f.close()
+f = open('Statistic\\config.txt', 'r+')
+id_pole = int(f.readline())
+id_point = int(f.readline())
+beg_trap = int(f.readline())
+end_trap = int(f.readline())
+beg_exp = int(f.readline())
+end_exp = int(f.readline())
+f.close()
 
-for id_traps in range(151):
+for id_traps in range(beg_trap, end_trap + 1):
     path = f"log_whith_traps\\pole_{id_pole}\\Points_{id_point}\\Traps_{id_traps}\\"
     arr_time_live = []
     arr_cnt_alive = []
-    for exp_id in range(2,23):
+    for exp_id in range(beg_exp, end_exp + 1):
         Get_data(id_pole, id_point, id_traps, exp_id, arr_time_live, arr_cnt_alive)
     mem_to_exel["trap_id"].append(id_traps)
     mem_to_exel["trapsCount"].append(cnt_trap)
@@ -71,7 +74,7 @@ ax.grid(True, linestyle='-.', linewidth=0.5, color='gray')
 ax.tick_params(axis='both', which='both', labelsize=8, width=1, color='red')
 plt.xlabel('Количество ловушек') #Подпись для оси х
 plt.ylabel('Время жизни') #Подпись для оси y
-plt.title('Зависимость времени жизни от ловушек при $3 * 10^6$ итераций') #Название
+plt.title('Зависимость времени жизни от ловушек при $10^7$ итераций') #Название
 plt.savefig(path_to_save + f'Grafic_time_live_{id_point}.png')
 plt.show()
 plt.close()
@@ -82,7 +85,7 @@ ax.grid(True, linestyle='-.', linewidth=0.5, color='gray')
 ax.tick_params(axis='both', which='both', labelsize=8, width=1, color='red')
 plt.xlabel('Количество ловушек') #Подпись для оси х
 plt.ylabel('Количество активных частиц') #Подпись для оси y
-plt.title('Зависимость количества активных частиц от количества ловушек \nпри $3 * 10^6$ итераций') #Название
+plt.title('Зависимость количества активных частиц от количества ловушек \nпри $10^7$ итераций') #Название
 plt.savefig(path_to_save + f'Grafic_alive_{id_point}.png')
 plt.show()
 plt.close()
