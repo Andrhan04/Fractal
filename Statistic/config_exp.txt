@@ -27,3 +27,12 @@ for heat map and create gif
 0 - id_pole
 0 - id_point
 0 - id_exp
+
+for current_all_deped_on_traps
+
+0 - id_pole
+0 - id_point
+0 - start_trap
+0 - end_trap
+0 - beg_exp
+0 - end_exp

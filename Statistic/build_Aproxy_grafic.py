@@ -212,7 +212,7 @@ ax.tick_params(axis='both', which='both', labelsize=8, width=1, color='red')
 plt.xlabel('Количество ловушек') #Подпись для оси х
 plt.ylabel('Количество активных частиц') #Подпись для оси y
 ax.legend()
-plt.title('Зависимость количества активных частиц от количества ловушек \nпри $3 * 10^6$ итераций') #Название
+plt.title('Зависимость количества активных частиц от количества ловушек') #Название
 plt.savefig(path_to_save + f'Grafic_aproxy_all_function_time_live_{id_point}.png')
 plt.show()
 plt.close()
@@ -239,6 +239,26 @@ so = 0
 for i in range(len(y_alive)):
     if(y_alive[i] !=0):
         so += abs(yinit_alive["a/sqrt(x) + b"][i]-y_alive[i])/y_alive[i]
+so = so / (len(y_alive)) * 100
+so = round(so,3)
+mem_alive["Средняя ошибка"].append(so)
+#---------------------------------------------------------------------------------------
+args, covar = curve_fit(mapping_a_des_x_plus_b,x_alive,y_alive)
+a =  args[0]
+b =  args[1]
+mem_alive["Function"].append("$\\frac{a}{x} + b$")
+mem_alive["a"].append(a)
+mem_alive["b"].append(b)
+mem_alive["c"].append(None)
+
+yinit_alive["a/x + b"]=[]
+for x in x_alive:
+    yinit_alive["a/x + b"].append(mapping_a_des_x_plus_b(x,a,b))
+
+so = 0
+for i in range(len(yinit_alive["a/x + b"])):
+    if(yinit_alive["a/x + b"][i] != 0):
+        so += abs(yinit_alive["a/x + b"][i]-y_alive[i])/y_alive[i]
 so = so / (len(y_alive)) * 100
 so = round(so,3)
 mem_alive["Средняя ошибка"].append(so)
@@ -358,7 +378,7 @@ ax.tick_params(axis='both', which='both', labelsize=8, width=1, color='red')
 plt.xlabel('Количество ловушек') #Подпись для оси х
 plt.ylabel('Количество активных частиц') #Подпись для оси y
 ax.legend()
-plt.title('Зависимость количества активных частиц от количества ловушек \nпри $3 * 10^6$ итераций') #Название
+plt.title('Зависимость количества активных частиц от количества ловушек') #Название
 plt.savefig(path_to_save + f'Grafic__aproxy_all_function_alive_{id_point}.png')
 plt.show()
 plt.close()
