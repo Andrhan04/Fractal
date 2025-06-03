@@ -75,7 +75,7 @@ ax.tick_params(axis='both', which='both', labelsize=8, width=1, color='red')
 plt.xlabel('Количество ловушек') #Подпись для оси х
 plt.ylabel('Время жизни') #Подпись для оси y
 plt.title('Зависимость времени жизни от ловушек при $10^7$ итераций') #Название
-plt.savefig(path_to_save + f'Grafic_time_live_{id_point}.png')
+plt.savefig(path_to_save + f'Grafic_time_live_{id_pole}.png')
 plt.show()
 plt.close()
 #------------------------Alive----------------------------------------------------------------
@@ -86,12 +86,12 @@ ax.tick_params(axis='both', which='both', labelsize=8, width=1, color='red')
 plt.xlabel('Количество ловушек') #Подпись для оси х
 plt.ylabel('Количество активных частиц') #Подпись для оси y
 plt.title('Зависимость количества активных частиц от количества ловушек \nпри $10^7$ итераций') #Название
-plt.savefig(path_to_save + f'Grafic_alive_{id_point}.png')
+plt.savefig(path_to_save + f'Grafic_alive_{id_pole}.png')
 plt.show()
 plt.close()
 
 #------------------------------Запись в excel
 df_x : pd.DataFrame =  pd.DataFrame(mem_to_exel)
 
-with pd.ExcelWriter(path_to_save + f"Function_{id_point}.xlsx") as writer:  
+with pd.ExcelWriter(path_to_save + f"Function_{id_pole}.xlsx") as writer:  
     df_x.to_excel(writer, sheet_name='Data_all')

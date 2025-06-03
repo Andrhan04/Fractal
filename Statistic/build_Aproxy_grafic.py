@@ -19,8 +19,15 @@ create_path(path_to_save)
 
 yinit_alive = {}
 yinit_time_live = {}
-id_point : int = 0
-df_orders = pd.read_excel(f'Statistic\\result\\depend_live_time_on_traps\\Function_{id_point}.xlsx', index_col=0)
+f = open('Statistic\\config.txt', 'r+')
+id_pole = int(f.readline())
+id_point = int(f.readline())
+beg_trap = int(f.readline())
+end_trap = int(f.readline())
+beg_exp = int(f.readline())
+end_exp = int(f.readline())
+f.close()
+df_orders = pd.read_excel(f'Statistic\\result\\depend_live_time_on_traps\\Function_{id_pole}.xlsx', index_col=0)
 
 def mapping_einx_plus_b(values_x, a, b):
     return (2.71**values_x)*a + b                  # не работает на активных
