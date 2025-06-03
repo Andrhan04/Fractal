@@ -380,6 +380,7 @@ ax.plot(x_alive, yinit_alive["a/(x**b)"], label = "$\\frac{a}{x^b}$")
 ax.plot(x_alive, yinit_alive["a/sqrt(x) + b"], label = "$\\frac{a}{\\sqrt{x}} + b$")
 ax.plot(x_alive, yinit_alive["ax + b"], label = "$ax + b$")
 ax.plot(x_alive, yinit_alive["ax**2 + bx + c"], label = "$ax^2+bx+c$")
+
 ax.grid(True, linestyle='-.', linewidth=0.5, color='gray')
 ax.tick_params(axis='both', which='both', labelsize=8, width=1, color='red')
 plt.xlabel('Количество ловушек') #Подпись для оси х
