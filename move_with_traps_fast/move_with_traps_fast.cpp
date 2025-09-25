@@ -210,19 +210,18 @@ void Create(int id_pole, int id_point, int id_trap) {
 }
 
 int main() {
-    int id_pole = 4;
+    int id_pole = 5;
     int id_point = 0;
-    int id_trap = 0;
     int t = 1e7;
     const int g_nNumberOfThreads = 20;
     omp_set_num_threads(g_nNumberOfThreads);
-    for (int id_trap = 338; id_trap <= 400; id_trap++) {
+    for (int id_trap = 401; id_trap <= 611; id_trap++) {
         Create(id_pole, id_point, id_trap);
         #pragma omp parallel for
         for (int exp = 0; exp <= 20; exp++) {
             //cout << "Start id_trap = " << id_trap << "; exp = " << exp << endl;
             Program(id_pole, id_point, id_trap, exp, t);
         }
-        cout << ((id_trap - 150) / (400.0 - 151.0 + 1.0)) * 100 << ' ' << "% Was done" << endl;
+        cout << ((id_trap - 400) / (611.0 - 401.0 + 1.0)) * 100 << ' ' << "% Was done" << endl;
     }
 }
